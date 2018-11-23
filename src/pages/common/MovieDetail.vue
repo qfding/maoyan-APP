@@ -162,7 +162,7 @@ export default {
       }
     }
     .movieZi {
-      width: 2.2rem;
+      width: 2.4rem;
       float: left;
       color: #fff;
       margin-left: 0.13rem;

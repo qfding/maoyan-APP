@@ -27,7 +27,7 @@ export default {
     selectIndex(newVal){
       let path = this.tabList[newVal].path;
       this.$router.push(path);
-    }
+    },
   },
   created(){
     // console.log(this.$route.fullPath);
@@ -38,6 +38,15 @@ export default {
     }else if(this.$route.fullPath.startsWith('/mine')){
       this.selectIndex=2
     }
+    // this.$watch(this.$route,(newval,oldval)=>{
+    //     if(newval.fullPath.startsWith('/movie')){
+    //       this.selectIndex=0
+    //     }else if(newval.fullPath.startsWith('/cinema')){
+    //       this.selectIndex=1
+    //     }else if(newval.fullPath.startsWith('/mine')){
+    //       this.selectIndex=2
+    //     }
+    // },{deep:true})
   }
 }
 </script>
