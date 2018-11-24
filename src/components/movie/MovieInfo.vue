@@ -94,7 +94,7 @@ export default {
     this.movieId = this.$router.history.current.params.movieId;
     getMovieDetail(this.movieId).then(data => {
       this.movieDetail = data;
-      // console.log(data)
+      console.log(data)
     });
     getMovieCinemaList(this.movieId, this.date, this.offset, this.cityID).then(
       data => {

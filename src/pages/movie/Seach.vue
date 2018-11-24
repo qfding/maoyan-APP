@@ -112,33 +112,42 @@ export default {
   
   methods: {
     inputChange() {
-      if (this.$refs.words.value !== "") {
-        this.blankShow = false;
-        this.$refs.del.style.display = "block";
-        getSearchList(this.$refs.words.value,this.cityID).then(result => {
-          if (result.movies) {
-            (this.moviesShow = true),
-              (this.searchMovieList = result.movies.list.splice(0, 3));
-            this.totalMovies = result.movies.total;
-          } else {
-            (this.moviesShow = false), (this.searchMovieList = []);
-            this.totalMovies = 0;
-          }
-          if (result.cinemas) {
-            (this.cinemasShow = true),
-              (this.searchCinemaList = result.cinemas.list.splice(0, 3));
-            this.totalCinemas = result.cinemas.total;
-          } else {
-            (this.cinemasShow = false), (this.searchCinemaList = []);
-            this.totalCinemas = 0;
-          }
-        });
-      } else {
-        this.blankShow = true;
-        (this.cinemasShow = false),
-          (this.moviesShow = false),
-          (this.$refs.del.style.display = "none");
+      clearTimeout(this.timer)
+      var _this=this
+      this.timer=setTimeout(fn,500)
+      function fn(){
+        // console.log('修改')
+        if (_this.$refs.words.value !== "") {
+          _this.blankShow = false;
+          _this.$refs.del.style.display = "block";
+            getSearchList(_this.$refs.words.value,_this.cityID).then(result => {
+              if (result.movies) {
+                (_this.moviesShow = true),
+                  (_this.searchMovieList = result.movies.list.splice(0, 3));
+                _this.totalMovies = result.movies.total;
+              } else {
+                (_this.moviesShow = false), (_this.searchMovieList = []);
+                _this.totalMovies = 0;
+              }
+              if (result.cinemas) {
+                (_this.cinemasShow = true),
+                  (_this.searchCinemaList = result.cinemas.list.splice(0, 3));
+                _this.totalCinemas = result.cinemas.total;
+              } else {
+                (_this.cinemasShow = false), (_this.searchCinemaList = []);
+                _this.totalCinemas = 0;
+              }
+            })
+          
+
+        } else {
+          _this.blankShow = true;
+          (_this.cinemasShow = false),
+            (_this.moviesShow = false),
+            (_this.$refs.del.style.display = "none");
+        }
       }
+      
     },
     clearInput() {
       this.$refs.words.value = "";
@@ -146,7 +155,7 @@ export default {
     backAction() {
       this.$router.back();
     }
-  }
+}
 };
 </script>
 

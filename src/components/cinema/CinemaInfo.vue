@@ -203,15 +203,15 @@ export default {
                 modifier: 1,
                 slideShadows : false,
             },
-                on: {
-                    slideChangeTransitionEnd: function(){
-                    // alert(this.activeIndex);//切换结束时，告诉我现在是第几个slide
-                    _this.movieInfo=_this.showMovieList[this.activeIndex];
-                    _this.dateList=_this.movieInfo.shows
-                    _this.DateAll=  _this.dateList[0].plist
-                    // console.log(_this.dateList)
-                    },
+            on: {
+                slideChangeTransitionEnd: function(){
+                // alert(this.activeIndex);//切换结束时，告诉我现在是第几个slide
+                _this.movieInfo=_this.showMovieList[this.activeIndex];
+                _this.dateList=_this.movieInfo.shows
+                _this.DateAll=  _this.dateList[0].plist
+                // console.log(_this.dateList)
                 },
+            },
             });
 
     },
@@ -224,17 +224,29 @@ export default {
     this.cinemaId = this.$route.params.cinemaId;
 
     getCinemaInfo(this.cinemaId).then(data => {
-      this.cinemaData = data.cinemaData;
+        this.cinemaData = data.cinemaData;
+     console.log(data.cinemaData)
         this.vipInfo=data.showData.vipInfo[0]
-
+        
       this.showMovieList = data.showData.movies;
-      this.movieInfo=this.showMovieList[0]
-        this.dateList=this.movieInfo.shows    
 
-        this.DateAll=  this.dateList[0].plist;
 
-        // 食物列表
-        this.foodList=data.dealList.divideDealList;
+      if(this.showMovieList[0]){
+          this.movieInfo=this.showMovieList[0]
+            this.dateList=this.movieInfo.shows    
+    
+            this.DateAll=  this.dateList[0].plist;
+      }
+
+            // console.log(data.dealList)
+        // 食物列显示与否
+        if(data.dealList.divideDealList.length>0){
+            this.foodList=data.dealList.divideDealList;
+            console.log(this.foodList)
+            this.foodIsShow=true;             
+        }else{
+            this.foodIsShow=false; 
+        }
 
 
         //判断是否放映完
@@ -243,9 +255,7 @@ export default {
             this.foodIsShow=false;            
         }
 
-
-
-      console.log(this.foodList);
+    //   console.log(this.foodList);
     });
   },
   mounted(){
@@ -348,14 +358,15 @@ export default {
       .dateLi{
           overflow: hidden;
           li{
-                float: left;
-                margin-left: 0.15rem;
-                display: inline-block;
-                line-height: 0.45rem;
-                height: 0.45rem;
-                text-align: center;
-                font-size: 0.14rem;
-                color: #666;
+            float: left;
+            margin-left: 0.15rem;
+            display: inline-block;
+            line-height: 0.45rem;
+            height: 0.45rem;
+            text-align: center;
+            font-size: 0.14rem;
+            color: #666;
+            
           }
           .active{
                   color: #f03d37;
@@ -413,6 +424,8 @@ export default {
                 } 
                 .inRight{
                     float: right;
+                    text-align: center;
+                    width: 1.36rem;
                     h3{
                         margin-top: 2px;
                         line-height: 0.18rem;
